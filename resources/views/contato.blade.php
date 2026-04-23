@@ -12,19 +12,31 @@
         </div>
         <div class="grid md:grid-cols-2 gap-12 items-start">
             <div class="space-y-5 reveal">
-                @foreach([
-                    ['📧','E-mail','contato@nexora.com.br'],
-                    ['💬','WhatsApp','(11) 99999-9999'],
-                    ['📍','Endereço','Brasil'],
-                ] as [$icon,$label,$value])
                 <div class="glass-card p-6 flex items-center gap-5">
-                    <span class="text-3xl">{{ $icon }}</span>
+                    <span class="text-3xl">📧</span>
                     <div>
-                        <div class="text-slate-400 text-xs mb-0.5">{{ $label }}</div>
-                        <div class="text-white font-semibold">{{ $value }}</div>
+                        <div class="text-slate-400 text-xs mb-0.5">E-mail</div>
+                        <a href="mailto:diegoaugusto.garciaa@gmail.com" class="text-white font-semibold hover:text-cyan-400 transition-colors">diegoaugusto.garciaa@gmail.com</a>
                     </div>
                 </div>
-                @endforeach
+                <div class="glass-card p-6 flex items-center gap-5">
+                    <span class="text-3xl">💬</span>
+                    <div>
+                        <div class="text-slate-400 text-xs mb-0.5">WhatsApp</div>
+                        <a href="https://wa.me/5532984502345" target="_blank" class="text-white font-semibold hover:text-green-400 transition-colors">(32) 98450-2345</a>
+                    </div>
+                </div>
+                <div class="glass-card p-6 flex items-center gap-5">
+                    <span class="text-3xl">📍</span>
+                    <div>
+                        <div class="text-slate-400 text-xs mb-0.5">Endereço</div>
+                        <div class="text-white font-semibold">Brasil</div>
+                    </div>
+                </div>
+                <a href="https://wa.me/5532984502345?text={{ urlencode('Olá! Gostaria de falar com a Nexora.') }}" target="_blank"
+                   class="flex items-center gap-3 justify-center w-full py-3 rounded-xl bg-green-500 hover:bg-green-400 transition-colors text-white font-semibold text-sm">
+                    💬 Falar pelo WhatsApp agora
+                </a>
             </div>
             <div class="glass-card p-8 reveal">
                 <h2 class="font-display font-bold text-xl text-white mb-6">Envie uma mensagem</h2>

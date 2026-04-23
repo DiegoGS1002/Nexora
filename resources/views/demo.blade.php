@@ -22,6 +22,13 @@
                 </li>
                 @endforeach
             </ul>
+            <div class="mt-8">
+                <a href="https://wa.me/5532984502345?text={{ urlencode('Olá! Gostaria de agendar uma demonstração da Nexora.') }}"
+                   target="_blank"
+                   class="inline-flex items-center gap-3 py-3 px-6 rounded-xl bg-green-500 hover:bg-green-400 transition-colors text-white font-semibold text-sm">
+                    💬 Preferir pelo WhatsApp? Clique aqui
+                </a>
+            </div>
         </div>
         <div class="glass-card p-8 reveal">
             <h2 class="font-display font-bold text-xl text-white mb-6">Preencha para agendar</h2>
