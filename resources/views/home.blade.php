@@ -133,10 +133,10 @@
                     </svg>
                 </div>
                 <div class="badge mb-3" style="color:#94a3b8;border-color:rgba(148,163,184,.3);background:rgba(148,163,184,.05)">Coming Soon</div>
-                <h3 class="font-display font-bold text-xl text-white mb-3">Força de Vendas Nexora</h3>
-                <p class="text-slate-400 text-sm mb-5">Dashboard comercial com CRM integrado ao ERP.</p>
+                <h3 class="font-display font-bold text-xl text-white mb-3">NexoraFDV — Força de Vendas</h3>
+                <p class="text-slate-400 text-sm mb-5">Plataforma FDV para equipes em campo: CRM, pedidos, visitas, roteiros, comissões e sync offline integrados ao ERP.</p>
                 <ul class="space-y-2 mb-6">
-                    @foreach(['Dashboard Comercial','Clientes & Prospects','Pedidos & Catálogo','Metas & Comissão','CRM & Roteirização'] as $m)
+                    @foreach(['Dashboard Comercial','Clientes & Prospects','Pedidos & Produtos','Metas & Comissões','CRM, Roteiros & Sync Offline'] as $m)
                     <li class="flex items-center gap-2 text-sm text-slate-400"><span class="text-slate-500 text-xs">●</span> {{ $m }}</li>
                     @endforeach
                 </ul>

@@ -12,16 +12,16 @@
                 Força de Vendas<br><span class="gradient-text">com inteligência comercial</span>
             </h1>
             <p class="text-slate-300 text-lg mb-10">
-                Dashboard comercial completo integrado ao ERP. CRM, pedidos, clientes, rotas e metas em uma única plataforma.
+                Plataforma completa para equipes de vendas em campo. CRM, pedidos, visitas com check-in/out, roteiros, comissões, financeiro e sincronização offline — tudo integrado ao ERP.
             </p>
             <a href="#espera" class="btn-primary pulse-glow">Entrar na lista de espera</a>
         </div>
         <div class="glass-card p-10 text-center">
             <div class="text-8xl mb-6">📊</div>
             <h3 class="font-display font-bold text-2xl text-white mb-4">Em desenvolvimento</h3>
-            <p class="text-slate-400 mb-8 text-sm">Dashboard comercial completo para equipes de vendas.</p>
+            <p class="text-slate-400 mb-8 text-sm">Plataforma FDV para equipes comerciais — web e mobile.</p>
             <div class="grid grid-cols-2 gap-3 text-xs">
-                @foreach(['Dashboard Comercial','Clientes','Prospects','Agenda Visitas','Pedidos','Catálogo','Metas/Comissão','CRM','Promoções','Roteirização','Financeiro','Assistente IA'] as $f)
+                @foreach(['Dashboard Comercial','Clientes','Prospects','Visitas & Check-in','Pedidos','Produtos & Preços','Metas','Comissões','CRM / Oportunidades','Roteiros','Financeiro','Sync Offline'] as $f)
                 <div class="glass-card px-3 py-2 text-slate-400">{{ $f }}</div>
                 @endforeach
             </div>
@@ -33,7 +33,7 @@
         <div class="text-center mb-10 reveal">
             <div class="badge mb-4">Lista de espera</div>
             <h2 class="font-display font-bold text-3xl text-white mb-3">Seja o primeiro a saber</h2>
-            <p class="text-slate-400">Cadastre-se e receba acesso antecipado ao módulo Força de Vendas.</p>
+            <p class="text-slate-400">Cadastre-se e receba acesso antecipado ao <strong class="text-slate-300">NexoraFDV</strong> — Força de Vendas em campo.</p>
         </div>
         <div class="glass-card p-8 reveal">
             <form action="{{ route('demo.store') }}" method="POST" class="space-y-4">
