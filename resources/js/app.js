@@ -1,58 +1,105 @@
 import './bootstrap';
 
-// ── Scroll Reveal ──────────────────────────────────────────────────
-const revealObserver = new IntersectionObserver(
-    (entries) => entries.forEach(e => {
-        if (e.isIntersecting) {
-            e.target.classList.add('visible');
-            revealObserver.unobserve(e.target);
-        }
-    }),
-    { threshold: 0.12 }
-);
-document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-// ── Animated Counters ──────────────────────────────────────────────
-function animateCounter(el) {
-    const target   = parseInt(el.dataset.target, 10);
-    const duration = 1800;
-    const step     = target / (duration / 16);
-    let current    = 0;
-    const timer    = setInterval(() => {
-        current += step;
-        if (current >= target) {
-            el.textContent = target + (el.dataset.suffix || '');
-            clearInterval(timer);
-        } else {
-            el.textContent = Math.floor(current) + (el.dataset.suffix || '');
-        }
-    }, 16);
+if (!reducedMotion && 'IntersectionObserver' in window) {
+    const revealObserver = new IntersectionObserver(
+        (entries) => {
+            entries.forEach((entry) => {
+                if (!entry.isIntersecting) return;
+                entry.target.classList.add('is-in');
+                revealObserver.unobserve(entry.target);
+            });
+        },
+        { rootMargin: '0px 0px -10% 0px', threshold: 0.08 },
+    );
+
+    document.querySelectorAll('[data-reveal]').forEach((element) => revealObserver.observe(element));
+} else {
+    document.querySelectorAll('[data-reveal]').forEach((element) => element.classList.add('is-in'));
 }
 
-const counterObserver = new IntersectionObserver(
-    (entries) => entries.forEach(e => {
-        if (e.isIntersecting) {
-            animateCounter(e.target);
-            counterObserver.unobserve(e.target);
-        }
-    }),
-    { threshold: 0.5 }
-);
-document.querySelectorAll('[data-target]').forEach(el => counterObserver.observe(el));
+const menuButton = document.getElementById('menu-toggle');
+const mobileMenu = document.getElementById('mobile-menu');
 
-// ── Navbar scroll ──────────────────────────────────────────────────
-const navbar = document.querySelector('.navbar');
-if (navbar) {
-    window.addEventListener('scroll', () => {
-        navbar.style.background = window.scrollY > 60
-            ? 'rgba(2,6,23,0.97)'
-            : 'rgba(2,6,23,0.80)';
+if (menuButton && mobileMenu) {
+    const closeMenu = () => {
+        mobileMenu.classList.add('hidden');
+        menuButton.setAttribute('aria-expanded', 'false');
+        menuButton.setAttribute('aria-label', 'Abrir menu');
+    };
+
+    menuButton.addEventListener('click', () => {
+        const willOpen = mobileMenu.classList.contains('hidden');
+        mobileMenu.classList.toggle('hidden', !willOpen);
+        menuButton.setAttribute('aria-expanded', String(willOpen));
+        menuButton.setAttribute('aria-label', willOpen ? 'Fechar menu' : 'Abrir menu');
+    });
+
+    mobileMenu.querySelectorAll('a').forEach((link) => link.addEventListener('click', closeMenu));
+
+    document.addEventListener('keydown', (event) => {
+        if (event.key !== 'Escape' || mobileMenu.classList.contains('hidden')) return;
+        closeMenu();
+        menuButton.focus();
     });
 }
 
-// ── Mobile menu toggle ─────────────────────────────────────────────
-const menuBtn    = document.getElementById('menu-toggle');
-const mobileMenu = document.getElementById('mobile-menu');
-if (menuBtn && mobileMenu) {
-    menuBtn.addEventListener('click', () => mobileMenu.classList.toggle('hidden'));
-}
+document.querySelectorAll('[data-ecosystem]').forEach((ecosystem) => {
+    const tabs = [...ecosystem.querySelectorAll('[role="tab"]')];
+    const panels = [...ecosystem.querySelectorAll('[role="tabpanel"]')];
+    const context = ecosystem.querySelector('.flow-demo__context');
+
+    const selectTab = (tab, moveFocus = false) => {
+        tabs.forEach((item) => {
+            const selected = item === tab;
+            item.setAttribute('aria-selected', String(selected));
+            item.tabIndex = selected ? 0 : -1;
+        });
+
+        panels.forEach((panel) => {
+            panel.hidden = panel.id !== tab.getAttribute('aria-controls');
+        });
+
+        if (context) context.textContent = tab.textContent.trim();
+        if (moveFocus) tab.focus();
+    };
+
+    tabs.forEach((tab, index) => {
+        tab.addEventListener('click', () => {
+            selectTab(tab);
+            ecosystem.dataset.userControlled = 'true';
+        });
+        tab.addEventListener('keydown', (event) => {
+            let nextIndex = null;
+            if (event.key === 'ArrowRight') nextIndex = (index + 1) % tabs.length;
+            if (event.key === 'ArrowLeft') nextIndex = (index - 1 + tabs.length) % tabs.length;
+            if (event.key === 'Home') nextIndex = 0;
+            if (event.key === 'End') nextIndex = tabs.length - 1;
+            if (nextIndex === null) return;
+            event.preventDefault();
+            selectTab(tabs[nextIndex], true);
+        });
+    });
+
+    if (!reducedMotion && tabs.length > 1) {
+        window.setInterval(() => {
+            if (ecosystem.dataset.userControlled === 'true' || document.hidden) return;
+            const activeIndex = tabs.findIndex((tab) => tab.getAttribute('aria-selected') === 'true');
+            selectTab(tabs[(activeIndex + 1) % tabs.length]);
+        }, 4200);
+    }
+});
+
+document.querySelectorAll('[data-capability]').forEach((band) => {
+    const toggle = band.querySelector('.capability-switch');
+    if (!toggle) return;
+
+    toggle.addEventListener('click', () => {
+        const active = toggle.getAttribute('aria-pressed') !== 'true';
+        const title = band.querySelector('p')?.textContent.trim() ?? '';
+        band.classList.toggle('is-on', active);
+        toggle.setAttribute('aria-pressed', String(active));
+        toggle.setAttribute('aria-label', `${active ? 'Desativar' : 'Ativar'} ${title}`);
+    });
+});

@@ -1,59 +1,63 @@
 @extends('layouts.app')
-@section('title', 'Força de Vendas Nexora — Dashboard Comercial integrado ao ERP')
+@section('title', 'NexoraFDV — Vendas em campo conectadas ao ERP')
+@section('meta_description', 'Pedidos, visitas, CRM, roteiros e sincronização offline para equipes comerciais conectadas ao ERP.')
+@section('body_class', 'page-inner page-fdv')
+
 @section('content')
-<section class="relative min-h-screen flex items-center hero-glow grid-overlay pt-20">
-    <div class="max-w-7xl mx-auto px-6 py-24 grid md:grid-cols-2 gap-16 items-center">
-        <div>
-            <div class="badge mb-6" style="color:#94a3b8;border-color:rgba(148,163,184,.3);background:rgba(148,163,184,.06)">
-                <span class="w-1.5 h-1.5 rounded-full bg-slate-400 animate-pulse"></span>
-                Pré-lançamento · Coming Soon
-            </div>
-            <h1 class="font-display font-bold text-5xl md:text-6xl text-white mb-6">
-                Força de Vendas<br><span class="gradient-text">com inteligência comercial</span>
-            </h1>
-            <p class="text-slate-300 text-lg mb-10">
-                Plataforma completa para equipes de vendas em campo. CRM, pedidos, visitas com check-in/out, roteiros, comissões, financeiro e sincronização offline — tudo integrado ao ERP.
-            </p>
-            <a href="#espera" class="btn-primary pulse-glow">Entrar na lista de espera</a>
-        </div>
-        <div class="glass-card p-10 text-center">
-            <div class="text-8xl mb-6">📊</div>
-            <h3 class="font-display font-bold text-2xl text-white mb-4">Em desenvolvimento</h3>
-            <p class="text-slate-400 mb-8 text-sm">Plataforma FDV para equipes comerciais — web e mobile.</p>
-            <div class="grid grid-cols-2 gap-3 text-xs">
-                @foreach(['Dashboard Comercial','Clientes','Prospects','Visitas & Check-in','Pedidos','Produtos & Preços','Metas','Comissões','CRM / Oportunidades','Roteiros','Financeiro','Sync Offline'] as $f)
-                <div class="glass-card px-3 py-2 text-slate-400">{{ $f }}</div>
-                @endforeach
-            </div>
+<section class="inner-hero inner-hero--reverse" aria-labelledby="fdv-title">
+    <div class="inner-hero__copy">
+        <p class="inner-hero__product">NexoraFDV está em pré-lançamento.</p>
+        <h1 id="fdv-title">Venda ativa.<br>Até offline.</h1>
+        <p class="inner-hero__lead">Visitas, pedidos, roteiros, metas e comissões seguem conectados ao ERP — mesmo quando a equipe está offline.</p>
+        <div class="inner-hero__actions"><a href="#espera" class="btn-primary">Entrar na lista de espera</a><a href="{{ route('erp') }}" class="text-link">Conhecer o ERP <span aria-hidden="true">↗</span></a></div>
+    </div>
+    <div class="inner-hero__visual inner-hero__visual--fdv">
+        <div class="inner-orbit" aria-hidden="true"><span></span><i></i></div>
+        <div class="product-screen route-screen" data-ui>
+            <div class="product-screen__bar"><strong>Rota comercial</strong><span>8 visitas</span></div>
+            <div class="route-screen__seller"><span>DG</span><div><strong>Diego Garcia</strong><small>Rota Zona Norte</small></div><b>74%</b></div>
+            <ol>
+                <li class="is-done"><span>08:30</span><strong>Mercado Central</strong><small>Pedido sincronizado</small></li>
+                <li class="is-current"><span>10:15</span><strong>Grupo Horizonte</strong><small>Visita em andamento</small></li>
+                <li><span>11:40</span><strong>Rede União</strong><small>Próxima parada</small></li>
+            </ol>
         </div>
     </div>
 </section>
-<section id="espera" class="py-24 bg-[#0B1020]">
-    <div class="max-w-xl mx-auto px-6">
-        <div class="text-center mb-10 reveal">
-            <div class="badge mb-4">Lista de espera</div>
-            <h2 class="font-display font-bold text-3xl text-white mb-3">Seja o primeiro a saber</h2>
-            <p class="text-slate-400">Cadastre-se e receba acesso antecipado ao <strong class="text-slate-300">NexoraFDV</strong> — Força de Vendas em campo.</p>
+
+<section class="fdv-flow" aria-labelledby="fdv-flow-title">
+    <div class="site-container">
+        <div class="section-heading section-heading--light" data-reveal><h2 id="fdv-flow-title">Do cliente ao ERP, sem intervalo.</h2><p>O representante trabalha com autonomia; a empresa acompanha com contexto.</p></div>
+        <div class="fdv-flow__path" data-reveal>
+            <span>Visita</span><span>Pedido</span><span>Estoque</span><span>Comissão</span><span>Financeiro</span>
         </div>
-        <div class="glass-card p-8 reveal">
-            <form action="{{ route('demo.store') }}" method="POST" class="space-y-4">
-                @csrf
-                <input type="hidden" name="interesse" value="Força de Vendas">
-                <input type="text" name="nome" required class="form-input" placeholder="Nome">
-                <input type="text" name="empresa" required class="form-input" placeholder="Empresa">
-                <input type="text" name="whatsapp" required class="form-input" placeholder="WhatsApp">
-                <select name="segmento" required class="form-input">
-                    <option value="">Segmento...</option>
-                    <option>Varejo</option><option>Atacado/Distribuição</option><option>Indústria</option><option>Serviços</option>
-                </select>
-                <button type="submit" class="btn-primary w-full justify-center">Entrar na lista</button>
-            </form>
-            @if(session('success'))
-            <div class="mt-4 p-4 rounded-xl bg-green-500/10 border border-green-500/25 text-green-400 text-sm text-center">
-                {{ session('success') }}
-            </div>
-            @endif
-        </div>
+    </div>
+</section>
+
+<section class="feature-sentences" aria-label="Recursos do NexoraFDV">
+    @foreach([
+        ['Venda mesmo sem sinal.', 'Sincronização offline preserva a rotina em campo.'],
+        ['A rota vira contexto.', 'Check-in, visitas e oportunidades permanecem conectados.'],
+        ['O pedido nasce integrado.', 'Produtos, preços e estoque seguem a regra do ERP.'],
+        ['A gestão acompanha agora.', 'Metas, comissões e desempenho ficam no mesmo fluxo.'],
+    ] as [$title, $copy])
+        <article data-reveal><div class="site-container"><h2>{{ $title }}</h2><p>{{ $copy }}</p><span aria-hidden="true"></span></div></article>
+    @endforeach
+</section>
+
+<section id="espera" class="lead-section" aria-labelledby="wait-title">
+    <div class="site-container lead-section__layout">
+        <div data-reveal><h2 id="wait-title">Chegue antes<br>à nova rota.</h2><p>Entre na lista e receba as novidades do pré-lançamento do NexoraFDV.</p></div>
+        <form action="{{ route('demo.store') }}" method="POST" class="lead-form" data-ui data-reveal>
+            @csrf
+            <input type="hidden" name="interesse" value="Força de Vendas">
+            <div class="field"><label for="fdv-nome">Nome</label><input id="fdv-nome" type="text" name="nome" required class="form-input" autocomplete="name"></div>
+            <div class="field"><label for="fdv-empresa">Empresa</label><input id="fdv-empresa" type="text" name="empresa" required class="form-input" autocomplete="organization"></div>
+            <div class="field"><label for="fdv-whatsapp">WhatsApp</label><input id="fdv-whatsapp" type="tel" name="whatsapp" required class="form-input" autocomplete="tel"></div>
+            <div class="field"><label for="fdv-segmento">Segmento</label><select id="fdv-segmento" name="segmento" required class="form-input"><option value="">Selecione</option><option>Varejo</option><option>Atacado/Distribuição</option><option>Indústria</option><option>Serviços</option></select></div>
+            <button type="submit" class="btn-primary">Entrar na lista</button>
+            @if(session('success'))<p class="form-success" role="status">{{ session('success') }}</p>@endif
+        </form>
     </div>
 </section>
 @endsection

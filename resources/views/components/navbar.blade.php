@@ -1,46 +1,26 @@
-<nav class="navbar">
-    <div class="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
-        {{-- Logo --}}
-        <a href="{{ route('home') }}" class="flex items-center gap-3">
-            <img src="{{ asset('images/LogoNexora.png') }}"
-                 alt="Nexora Logo"
-                 class="h-8 w-auto">
-            <span class="font-display font-bold text-lg tracking-tight text-white hidden sm:block">Nexora</span>
+<nav class="navbar" aria-label="Navegação principal">
+    <div class="navbar__inner">
+        <a href="{{ route('home') }}" class="navbar__brand" aria-label="Nexora — início">
+            <img src="{{ asset('images/LogoNexora-clean.png') }}" alt="Nexora" width="1944" height="809" fetchpriority="high">
         </a>
-        {{-- Desktop nav --}}
-        <div class="hidden md:flex items-center gap-8 text-sm font-medium text-slate-300">
-            <a href="{{ route('erp') }}"       class="hover:text-cyan-400 transition-colors">ERP</a>
-            <a href="{{ route('fdv') }}"       class="hover:text-cyan-400 transition-colors">Força de Vendas</a>
-            <a href="{{ route('ecommerce') }}" class="hover:text-cyan-400 transition-colors">E-commerce</a>
-            <a href="{{ route('sobre') }}"     class="hover:text-cyan-400 transition-colors">Sobre</a>
-            <a href="{{ route('contato') }}"   class="hover:text-cyan-400 transition-colors">Contato</a>
+        <div class="navbar__links">
+            <a href="{{ route('erp') }}" @if(request()->routeIs('erp')) aria-current="page" @endif>ERP</a>
+            <a href="{{ route('fdv') }}" @if(request()->routeIs('fdv')) aria-current="page" @endif>Força de Vendas</a>
+            <a href="{{ route('ecommerce') }}" @if(request()->routeIs('ecommerce')) aria-current="page" @endif>E-commerce</a>
+            <a href="{{ route('sobre') }}" @if(request()->routeIs('sobre')) aria-current="page" @endif>Sobre</a>
+            <a href="{{ route('contato') }}" @if(request()->routeIs('contato')) aria-current="page" @endif>Contato</a>
         </div>
-        {{-- CTA --}}
-        <div class="hidden md:flex items-center gap-3">
-            <a href="{{ route('demo') }}" class="btn-primary text-sm py-2.5 px-5">
-                Solicitar Demo
-            </a>
-        </div>
-        {{-- Mobile burger --}}
-        <button id="menu-toggle"
-                class="md:hidden text-slate-300 hover:text-white transition-colors"
-                aria-label="Abrir menu">
-            <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round"
-                      d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"/>
-            </svg>
+        <a href="{{ route('demo') }}" class="navbar__cta">Solicitar demo <span aria-hidden="true">↗</span></a>
+        <button id="menu-toggle" type="button" class="navbar__toggle" aria-label="Abrir menu" aria-expanded="false" aria-controls="mobile-menu">
+            <span></span><span></span>
         </button>
     </div>
-    {{-- Mobile menu --}}
-    <div id="mobile-menu"
-         class="hidden md:hidden border-t border-slate-800 bg-[#020617] px-6 pb-5 pt-3">
-        <div class="flex flex-col gap-4 text-sm font-medium text-slate-300">
-            <a href="{{ route('erp') }}"       class="hover:text-cyan-400">ERP</a>
-            <a href="{{ route('fdv') }}"       class="hover:text-cyan-400">Força de Vendas</a>
-            <a href="{{ route('ecommerce') }}" class="hover:text-cyan-400">E-commerce</a>
-            <a href="{{ route('sobre') }}"     class="hover:text-cyan-400">Sobre</a>
-            <a href="{{ route('contato') }}"   class="hover:text-cyan-400">Contato</a>
-            <a href="{{ route('demo') }}"      class="btn-primary text-center mt-2">Solicitar Demo</a>
-        </div>
+    <div id="mobile-menu" class="navbar__mobile hidden">
+        <a href="{{ route('erp') }}">ERP</a>
+        <a href="{{ route('fdv') }}">Força de Vendas</a>
+        <a href="{{ route('ecommerce') }}">E-commerce</a>
+        <a href="{{ route('sobre') }}">Sobre</a>
+        <a href="{{ route('contato') }}">Contato</a>
+        <a href="{{ route('demo') }}" class="btn-primary">Solicitar demo</a>
     </div>
 </nav>
